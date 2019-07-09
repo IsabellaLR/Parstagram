@@ -31,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.login_btn);
         signButton = findViewById(R.id.btn_sign);
 
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null) {
+            final Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            startActivity(intent);
+        }
+
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
