@@ -7,7 +7,10 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.parstagram.R;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends Fragment {
     // The onCreateView method is called when Fragment should create its View object hierarchy,
@@ -23,6 +26,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // Setup any handles to view objects here
-        // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
+        CircleImageView profile = (CircleImageView) view.findViewById(R.id.profile_image);
+//        Glide.with(getActivity()).load()
     }
 }
