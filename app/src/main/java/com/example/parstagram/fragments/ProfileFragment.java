@@ -18,30 +18,45 @@ import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.example.parstagram.HomeActivity;
 import com.example.parstagram.PostActivity;
+import com.example.parstagram.PostsAdapter;
+import com.example.parstagram.ProfileAdapter;
 import com.example.parstagram.R;
+import com.example.parstagram.model.Post;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
 import static com.example.parstagram.HomeActivity.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment{
 
     public String photoFileName = "photo.jpg";
     private File photoFile;
     private ImageView ivPostImage;
     private static final String imagePath = "icon.png";
-    public final String TAG = "ProfileFragment";
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1035;
     public CircleImageView profile;
+    protected RecyclerView rvProfilePosts;
+    protected ProfileAdapter adapter;
+    protected List<Post> mPosts;
+    public static final String TAG = "ProfileFragment";
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
@@ -57,13 +72,62 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // Setup any handles to view objects here
         Button changePic = (Button) view.findViewById(R.id.changePic);
+//        posts = new ArrayList<>();
+//        postAdapter = new PostsAdapter(posts);
         profile = view.findViewById(R.id.profile_image);
+//        rvPosts = view.findViewById(R.id.rvPost);
 //        Glide.with(getActivity()).load()
+
+        // Setup any handles to view objects here
+        rvProfilePosts = view.findViewById(R.id.rvProfilePosts);
+
+        //create the data source
+        mPosts = new ArrayList<>();
+        //create the adapter
+        adapter = new ProfileAdapter(getContext(), mPosts);
+        //set the adapter on the recycler view
+        rvProfilePosts.setAdapter(adapter);
+        //set the the layout manager on the recycler view
+        rvProfilePosts.setLayoutManager(new GridLayoutManager(getContext(), 3));
+
+        queryPosts();
 
         changePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 launchCamera();
+            }
+        });
+
+        // First param is number of columns and second param is orientation i.e Vertical or Horizontal
+        GridLayoutManager gridLayoutManager =
+                new GridLayoutManager(getContext(), 3);
+        // Attach the layout manager to the recycler view
+        rvProfilePosts.setLayoutManager(gridLayoutManager);
+        rvProfilePosts.setAdapter(adapter);
+    }
+
+    protected void queryPosts() {
+        ParseQuery<Post> postQuery = new ParseQuery<>(Post.class);
+        postQuery.include(Post.KEY_USER);
+        postQuery.setLimit(20);
+        postQuery.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
+        postQuery.addDescendingOrder(Post.KEY_DATE);
+        postQuery.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> posts, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Error with query");
+                    e.printStackTrace();
+                    return;
+                }
+                mPosts.addAll(posts);
+                adapter.notifyDataSetChanged();
+//                swipeContainer.setRefreshing(false);
+                for (int i = 0; i < posts.size(); i++) {
+                    Post post = posts.get(i);
+                    Log.d(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername());
+                }
             }
         });
     }
@@ -118,6 +182,15 @@ public class ProfileFragment extends Fragment {
                 Toast.makeText(getContext(), "Picture taken!", Toast.LENGTH_SHORT).show();
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
                 profile.setImageBitmap(takenImage);
+
+                //write to database
+                ParseUser user = ParseUser.getCurrentUser();
+                user.put("profile", new ParseFile(photoFile));
+                try {
+                    user.save();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             } else { // Result was a failure
                 Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
