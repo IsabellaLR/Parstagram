@@ -1,6 +1,8 @@
 package com.example.parstagram;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
@@ -18,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.parstagram.fragments.ProfileFragment;
 import com.example.parstagram.model.Post;
-import com.parse.ParseException;
 import com.parse.ParseFile;
 
 import java.text.SimpleDateFormat;
@@ -60,8 +60,22 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Post post = posts.get(position);
+        final Post post = posts.get(position);
         holder.bind(post);
+
+        holder.pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // handle click here
+                Intent i = new Intent(context, DetailsActivity.class);
+                i.putExtra("date", getRelativeTimeAgo(String.valueOf(post.getCreatedAt())));
+                i.putExtra("image", post.getImage().getUrl());
+                i.putExtra("user", post.getUser().getUsername());
+                i.putExtra("description", post.getDescription());
+                i.putExtra("profile", post.getProfile());
+                ((Activity) context).startActivityForResult(i, 20);
+            }
+        });
     }
 
     @Override
@@ -107,6 +121,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 Glide.with(context).load(image.getUrl()).into(pic);
             }
             description.setText(post.getDescription());
+            ParseFile image2 = post.getProfile();
+            if (image2 != null){
+                Glide.with(context).load(image2.getUrl()).into(profile);
+            }
 
             profile.setOnClickListener(new View.OnClickListener() {
                 @Override

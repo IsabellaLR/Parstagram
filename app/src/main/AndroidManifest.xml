@@ -26,6 +26,8 @@
         </provider>
 
         <activity android:name=".ProfileActivity" />
+        <activity android:name=".DetailsActivity"
+            android:theme="@style/Theme.AppCompat.Transparent"></activity>
         <activity android:name=".PhotoActivity" />
         <activity android:name=".SignActivity" />
         <activity android:name=".HomeActivity">

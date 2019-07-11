@@ -1,5 +1,6 @@
 package com.example.parstagram.model;
 
+import com.parse.Parse;
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -12,6 +13,7 @@ public class Post extends ParseObject {
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_IMAGE = "image";
     public static final String KEY_DATE = "createdAt";
+    public static final String KEY_PROFILE = "profile";
 
 //    private static final String KEY_USER = "user";
 
@@ -37,6 +39,14 @@ public class Post extends ParseObject {
 
     public void setImage(ParseFile image){
         put(KEY_IMAGE, image);
+    }
+
+    public ParseFile getProfile(){
+        return getParseFile(KEY_PROFILE);
+    }
+
+    public void setProfile(ParseFile profile) {
+        put(KEY_PROFILE, profile);
     }
 
     public ParseUser getUser(){
