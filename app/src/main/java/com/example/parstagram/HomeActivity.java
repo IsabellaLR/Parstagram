@@ -81,7 +81,8 @@ public class HomeActivity extends AppCompatActivity {
                         fragment = new HomeFragment();
                         break;
                     case R.id.action_photo:
-                        launchCamera();
+                        Intent i = new Intent(HomeActivity.this, PostActivity.class);
+                        startActivity(i);
                         fragment = new PhotoFragment();
                         break;
                     case R.id.action_profile:
@@ -95,19 +96,6 @@ public class HomeActivity extends AppCompatActivity {
         });
         // Set default selection
         bottomNavigationView.setSelectedItemId(R.id.action_home);
-
-//        createButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v){
-//                final String description = descriptionInput.getText().toString();
-//                final ParseUser user = ParseUser.getCurrentUser();
-//
-//                final File file = new File(imagePath);
-//                final ParseFile parseFile = new ParseFile(file);
-//
-//                createPost(description, parseFile, user);
-//            }
-//        });
 //
 //        refreshButton.setOnClickListener(new View.OnClickListener() {
 //            @Override

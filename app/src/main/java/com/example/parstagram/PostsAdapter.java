@@ -8,10 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.parstagram.fragments.ProfileFragment;
 import com.example.parstagram.model.Post;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -81,6 +86,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private ImageView pic;
         private TextView description;
         private TextView date;
+        private ImageView profile;
+        FragmentManager fragmentManager;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,6 +95,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             pic = itemView.findViewById(R.id.pic);
             description = itemView.findViewById(R.id.description);
             date = itemView.findViewById(R.id.date);
+            profile = itemView.findViewById(R.id.profile);
+            fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
         }
 
         public void bind(Post post){
@@ -98,6 +107,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 Glide.with(context).load(image.getUrl()).into(pic);
             }
             description.setText(post.getDescription());
+
+            profile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v){
+                    fragmentManager.beginTransaction().replace(R.id.f1Container, new ProfileFragment()).commit();
+                }
+            });
         }
     }
 }
