@@ -12,21 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.bumptech.glide.Glide;
-import com.example.parstagram.HomeActivity;
-import com.example.parstagram.PostActivity;
-import com.example.parstagram.PostsAdapter;
 import com.example.parstagram.ProfileAdapter;
 import com.example.parstagram.R;
 import com.example.parstagram.model.Post;
@@ -43,7 +37,6 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
-import static com.example.parstagram.HomeActivity.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE;
 
 public class ProfileFragment extends Fragment{
 
@@ -53,10 +46,12 @@ public class ProfileFragment extends Fragment{
     private static final String imagePath = "icon.png";
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1035;
     public CircleImageView profile;
+    public Button logOut;
     protected RecyclerView rvProfilePosts;
     protected ProfileAdapter adapter;
     protected List<Post> mPosts;
     public static final String TAG = "ProfileFragment";
+
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
@@ -72,9 +67,14 @@ public class ProfileFragment extends Fragment{
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // Setup any handles to view objects here
         Button changePic = (Button) view.findViewById(R.id.changePic);
+        Button logOut = (Button) view.findViewById(R.id.btn_log);
 //        posts = new ArrayList<>();
 //        postAdapter = new PostsAdapter(posts);
         profile = view.findViewById(R.id.profile_image);
+        ParseFile image = ParseUser.getCurrentUser().getParseFile("profile");
+        if (image != null) {
+            Glide.with(getContext()).load(image.getUrl()).into(profile);
+        }
 //        rvPosts = view.findViewById(R.id.rvPost);
 //        Glide.with(getActivity()).load()
 
@@ -96,6 +96,13 @@ public class ProfileFragment extends Fragment{
             @Override
             public void onClick(View v){
                 launchCamera();
+            }
+        });
+
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                ParseUser.logOut();
             }
         });
 
@@ -197,3 +204,4 @@ public class ProfileFragment extends Fragment{
         }
     }
 }
+

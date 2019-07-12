@@ -1,11 +1,12 @@
 package com.example.parstagram.model;
 
-import com.parse.Parse;
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import java.util.List;
 
 @ParseClassName("Post")
 public class Post extends ParseObject {
@@ -14,6 +15,7 @@ public class Post extends ParseObject {
     private static final String KEY_IMAGE = "image";
     public static final String KEY_DATE = "createdAt";
     public static final String KEY_PROFILE = "profile";
+    public static final String KEY_LIKES = "likes";
 
 //    private static final String KEY_USER = "user";
 
@@ -23,6 +25,14 @@ public class Post extends ParseObject {
 
     public void setDescription(String description) {
         put(KEY_DESCRIPTION, description);
+    }
+
+    public List <String> getLikes(){
+        return getList((KEY_LIKES));
+    }
+
+    public void setLikes(List likes) {
+        put((KEY_LIKES), likes);
     }
 
     public String getDate(){

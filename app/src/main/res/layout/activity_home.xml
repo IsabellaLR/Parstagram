@@ -6,6 +6,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/my_toolbar"-->
+        <!--style="@style/HeaderBar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginLeft="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginRight="8dp"-->
+        <!--android:elevation="4dp"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:popupTheme="@style/ActionBarPopupThemeOverlay"-->
+        <!--app:theme="@style/ActionBarThemeOverlay" />-->
+
     <!--<EditText-->
         <!--android:id="@+id/description_et"-->
         <!--android:layout_width="0dp"-->
@@ -55,15 +72,16 @@
         android:layout_width="match_parent"
         android:layout_height="653dp"
         android:layout_above="@id/bottom_navigation"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintTop_toTopOf="parent"></FrameLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.571"
+        tools:layout_editor_absoluteX="0dp"></FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"

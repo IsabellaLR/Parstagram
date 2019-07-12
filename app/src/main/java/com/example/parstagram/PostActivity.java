@@ -1,10 +1,5 @@
 package com.example.parstagram;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
-import androidx.fragment.app.FragmentManager;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,6 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.parstagram.fragments.HomeFragment;
 import com.example.parstagram.model.Post;
@@ -123,7 +122,7 @@ public class PostActivity extends AppCompatActivity {
                 // RESIZE BITMAP, see section below
                 // Load the taken image into a preview
 //                ivPostImage.setImageBitmap(takenImage);
-                Toast.makeText(this, "Picture taken!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Picture taken!", Toast.LENGTH_SHORT).show();
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
                 imageCapture.setImageBitmap(takenImage);
             } else { // Result was a failure

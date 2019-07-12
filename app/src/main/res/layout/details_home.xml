@@ -64,13 +64,17 @@
 
         <ImageView
             android:id="@+id/d_image"
-            android:textColor="#000000"
-            android:background="#FFFFFF"
-            android:layout_width="309dp"
+            android:layout_width="match_parent"
             android:layout_height="220dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="#FFFFFF"
+            android:scaleType="fitXY"
+            android:textColor="#000000"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/d_profile"
             app:srcCompat="@android:color/darker_gray" />

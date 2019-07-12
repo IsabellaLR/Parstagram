@@ -7,18 +7,18 @@
     tools:context=".MainActivity">
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/username_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="13dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/imageView5">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/username_et"
@@ -59,7 +59,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:alpha="0.25"
+        android:alpha="0.5"
         android:background="#10AFF8"
         android:text="log in"
         android:textColor="#FFFFFF"
@@ -70,43 +70,40 @@
     <Button
         android:id="@+id/btn_sign"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="53dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_width="70dp"
+        android:layout_height="20dp"
         android:layout_marginBottom="8dp"
-        android:background="?android:attr/selectableItemBackground"
+        android:background="#0020A7FF"
         android:text="Sign Up"
-        android:textSize="12sp"
+        android:textSize="13sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView2" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:fontFamily="sans-serif"
-        android:text="Instagram"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
+        android:layout_marginStart="90dp"
+        android:layout_marginLeft="90dp"
         android:layout_marginBottom="8dp"
         android:text="Don't have an account?"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="331dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

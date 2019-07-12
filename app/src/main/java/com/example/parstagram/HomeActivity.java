@@ -1,28 +1,19 @@
 package com.example.parstagram;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.Toolbar;
 
-import com.bumptech.glide.Glide;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import com.example.parstagram.fragments.HomeFragment;
 import com.example.parstagram.fragments.PhotoFragment;
 import com.example.parstagram.fragments.ProfileFragment;
@@ -30,10 +21,6 @@ import com.example.parstagram.model.Post;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseFile;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 import java.io.File;
 import java.util.List;
@@ -50,6 +37,7 @@ public class HomeActivity extends AppCompatActivity {
     public String photoFileName = "photo.jpg";
     private File photoFile;
     private ImageView ivPostImage;
+    private Toolbar mTopToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +48,9 @@ public class HomeActivity extends AppCompatActivity {
         final Fragment fragment1 = new HomeFragment();
         final Fragment fragment2 = new PhotoFragment();
         final Fragment fragment3 = new ProfileFragment();
+
+//        mTopToolbar = findViewById(R.id.my_toolbar);
+//        setActionBar(mTopToolbar);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
